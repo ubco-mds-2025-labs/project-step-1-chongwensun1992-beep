@@ -1,0 +1,14 @@
+[
+    {
+        "name": "test1",
+        "amount": 1000.0,
+        "source": "test1",
+        "type": "Income"
+    },
+    {
+        "name": "test2",
+        "amount": -10000.0,
+        "category": "test2",
+        "type": "Expense"
+    }
+]
