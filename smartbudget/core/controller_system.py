@@ -7,9 +7,16 @@ Handles saving, loading, listing, and deleting backup data files.
 from smartbudget.entity.transaction import Income,Expense
 from smartbudget.io import (
     save_to_json, load_from_json,
-    file_exists, list_files, delete_file
+    file_exists, list_files, delete_file,clear_json
 )
 
+def clear_data():
+    confirm = input("⚠ Are you sure you want to CLEAR ALL DATA? (y/n): ").lower()
+    if confirm == "y":
+        clear_json()  # 默认清空 records.json
+        print("✔ All records have been cleared.\n")
+    else:
+        print("❌ Cancelled.\n")
 
 def save_data():
     filename = input("Enter filename to save (e.g., backup.json): ").strip()

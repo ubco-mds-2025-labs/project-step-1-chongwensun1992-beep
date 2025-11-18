@@ -122,6 +122,7 @@ Contains:
 - `save_to_json()`
 - `load_from_json()`
 - `append_to_json()`
+- `clear_json()`
 ### `file_utils.py`
 - `file_exists()`  
 - `list_files()`  
@@ -148,6 +149,7 @@ You will see:
 6. Backup Records to JSON
 7. List Backup Files
 8. Delete File
+9. Records Reset
 0. Exit
 ```
 

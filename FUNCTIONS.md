@@ -138,6 +138,9 @@ Handles file saving, loading, listing, and deletion.
 - **`save_data()`**  
   Saves the current records.json data to a chosen backup file.
 
+- **`clear_data()`**  
+  Reset the current records.json data.
+
 - **`load_data(incomes, expenses)`**  
   Reads from a JSON file and reconstructs Income/Expense objects.
 
@@ -177,6 +180,8 @@ Responsible for saving/loading JSON files.
 - **`load_from_json(filename)`**  
   Loads JSON data and reconstructs Income/Expense objects.
 
+- **`clear_json(filename)`**  
+  Clear JSON data and Income/Expense objects.
 ---
 
 ## ## `file_utils.py`
@@ -212,6 +217,4 @@ SmartBudget provides:
 - JSON persistence  
 - Command-line interaction  
 
-This architecture is easy to extend and maintains excellent readability for course grading.
 
-If you need UML diagrams, a setup.py file, or an auto-generated usage example, just ask!

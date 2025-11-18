@@ -56,3 +56,13 @@ def append_to_json(new_records, filename=DEFAULT_FILENAME):
     all_records = existing + new_records
     save_to_json(all_records, filename)
 
+def clear_json(filename=DEFAULT_FILENAME):
+    """Clear all records in the given JSON file."""
+    ensure_files_dir()
+    path = os.path.join(FILES_DIR, filename)
+
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump([], f, indent=4)
+
+    return True
+

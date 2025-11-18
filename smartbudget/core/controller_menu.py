@@ -19,6 +19,7 @@ def print_menu():
     print("6. Backup Records to JSON")
     print("7. List Backup Files")
     print("8. Delete File")
+    print("9. Records Reset")
     print("0. Exit")
     print("====================================")
 
@@ -45,6 +46,8 @@ def run():
             sys.show_files()
         elif choice == "8":
             sys.delete_backup_file()
+        elif choice == "9":
+            sys.clear_data()
         elif choice == "0":
             print("\nExiting SmartBudget. Goodbye!\n")
             break

@@ -15,6 +15,7 @@ from .controller_system import (
     save_data,
     load_data,
     show_files,
+    clear_data,
     delete_backup_file,
 )
 
@@ -32,6 +33,7 @@ __all__ = [
 
     # system controllers
     "save_data",
+    "clear_data",
     "load_data",
     "show_files",
     "delete_backup_file",
