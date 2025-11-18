@@ -4,7 +4,7 @@ This script demonstrates how to use major features of the package.
 Run it independently to validate functionality.
 """
 
-from smartbudget.core.transaction import Income, Expense
+from smartbudget.entity.transaction import Income, Expense
 from smartbudget.analysis.summary import total_income, total_expenses, budget_balance
 from smartbudget.analysis.insights import (
     expense_details,

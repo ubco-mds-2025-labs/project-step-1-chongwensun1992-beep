@@ -3,22 +3,21 @@ Summary functions for incomes and expenses.
 """
 
 from typing import Iterable
-from smartbudget.core.transaction import Income, Expense
+from smartbudget.entity.transaction import Income, Expense
+from smartbudget.io.json_io import load_from_json
+from smartbudget.analysis.insights import _load_split
 
 
-def total_income(incomes: Iterable[Income]) -> float:
-    """Return the total income amount."""
+
+def total_income() -> float:
+    incomes, _ = _load_split()
     return sum(item.amount for item in incomes)
 
 
-def total_expenses(expenses: Iterable[Expense]) -> float:
-    """Return the total expense amount (as a negative number)."""
+def total_expenses() -> float:
+    _, expenses = _load_split()
     return sum(item.amount for item in expenses)
 
 
-def budget_balance(incomes: Iterable[Income], expenses: Iterable[Expense]) -> float:
-    """
-    Return the overall budget balance:
-    total_income + total_expenses.
-    """
-    return total_income(incomes) + total_expenses(expenses)
+def budget_balance() -> float:
+    return total_income() + total_expenses()

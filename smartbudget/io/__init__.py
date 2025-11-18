@@ -8,7 +8,8 @@ Provides:
 
 from .json_io import (
     save_to_json,
-    load_from_json
+    load_from_json,
+    append_to_json,   # ← 新增
 )
 
 from .file_utils import (
@@ -21,7 +22,7 @@ __all__ = [
     # JSON I/O
     "save_to_json",
     "load_from_json",
-    # "json_pretty_print",
+    "append_to_json",
 
     # File utilities
     "file_exists",

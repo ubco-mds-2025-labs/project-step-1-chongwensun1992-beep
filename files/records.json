@@ -1,0 +1,38 @@
+[
+    {
+        "name": "123",
+        "amount": 123123.0,
+        "source": "123",
+        "type": "Income"
+    },
+    {
+        "name": "2",
+        "amount": -123123.0,
+        "category": "123",
+        "type": "Expense"
+    },
+    {
+        "name": "123",
+        "amount": -15000.0,
+        "category": "123",
+        "type": "Expense"
+    },
+    {
+        "name": "123",
+        "amount": 50000.0,
+        "source": "123",
+        "type": "Income"
+    },
+    {
+        "name": "123",
+        "amount": 20000.0,
+        "source": "123",
+        "type": "Income"
+    },
+    {
+        "name": "123",
+        "amount": 150000.0,
+        "source": "123",
+        "type": "Income"
+    }
+]

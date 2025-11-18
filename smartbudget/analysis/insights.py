@@ -3,59 +3,44 @@ Analysis helpers for SmartBudget.
 Provides simple income/expense details and sorting.
 """
 
-from typing import Iterable, List
-from smartbudget.core.transaction import Expense, Income
+from typing import List
+from smartbudget.entity.transaction import Expense, Income
+from smartbudget.io.json_io import load_from_json
+
+
+# ======================================
+# Internal helper: always load file data
+# ======================================
+
+def _load_split():
+    """Load records from records.json and split into incomes/expenses."""
+    records = load_from_json()
+
+    incomes = [r for r in records if isinstance(r, Income)]
+    expenses = [r for r in records if isinstance(r, Expense)]
+
+    return incomes, expenses
 
 
 # ============================
 # expense
 # ============================
 
-def expense_details(expenses: Iterable[Expense]) -> List[str]:
-    """
-    Return a list of formatted expense descriptions.
-    """
+def expense_details() -> List[str]:
+    """Return formatted descriptions of all expenses from records.json."""
+    _, expenses = _load_split()
     return [e.describe() for e in expenses]
 
 
-def largest_expenses(expenses: Iterable[Expense], n: int = 3) -> List[Expense]:
-    """
-    Return the top N largest expenses by absolute amount.
-    """
-    return sorted(expenses, key=lambda x: abs(x.amount), reverse=True)[:n]
 
 
 # ============================
 # income
 # ============================
 
-def income_details(incomes: Iterable[Income]) -> List[str]:
-    """
-    Return a list of formatted income descriptions.
-    """
+def income_details() -> List[str]:
+    """Return formatted descriptions of all incomes from records.json."""
+    incomes, _ = _load_split()
     return [i.describe() for i in incomes]
 
 
-def largest_incomes(incomes: Iterable[Income], n: int = 3) -> List[Income]:
-    """
-    Return the top N largest incomes.
-    """
-    return sorted(incomes, key=lambda x: x.amount, reverse=True)[:n]
-
-
-# ============================
-# print
-# ============================
-
-def print_records(title: str, records: Iterable):
-    """
-    Utility: print a list of records (either income or expenses).
-    """
-    print(f"\n=== {title} ===")
-    if not records:
-        print("No records.\n")
-        return
-
-    for r in records:
-        print(" -", r.describe())
-    print()

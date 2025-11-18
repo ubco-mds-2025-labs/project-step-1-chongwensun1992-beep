@@ -1,173 +1,217 @@
-# SmartBudget – Function Documentation
-
-This document provides a detailed explanation of all modules and functions included in the **SmartBudget** package. Functions are grouped based on their sub-packages and modules.
-
----
-
-# 📦 1. `core` Sub-Package
-
-The `core` package contains the foundational classes used to represent financial records. It demonstrates **inheritance**, which is required by the project.
+# 📘 SmartBudget — FUNCTIONS.md  
+This document provides a full overview of **all functions**, **classes**, and **modules** included in the SmartBudget package.  
+It serves as API documentation and supports code readability, maintainability, and grading requirements.
 
 ---
 
-## ## 1.1 `base_record.py`
+# 📁 Package Overview
 
-### **Class: RecordBase(name, amount)**
+SmartBudget consists of four major functional areas:
 
-The parent class for all income and expense records.
+1. **entity/** – core data models (OOP classes)
+2. **analysis/** – financial calculations and insight helpers
+3. **core/** – controllers and menu-driven application logic
+4. **io/** – data persistence and file utilities
 
-#### **Methods:**
-
-* **show()**
-  Returns a formatted string that displays the record's name and amount.
-
-* **is_positive()**
-  Returns `True` if the amount stored in the object is positive.
-
-* **to_dict()**
-  Serializes the object into a basic dictionary. Subclasses override this method to add more fields.
+Below is a detailed explanation of all modules and functions.
 
 ---
 
-## ## 1.2 `transaction.py`
+# 🧱 1. ENTITY MODULES (`smartbudget/entity/`)
 
-### **Class: Income(name, amount, source)**
+## ## `base_record.py`
+### **Class: RecordBase**
+Parent class for both `Income` and `Expense`.  
+Handles validation and shared behavior.
 
-Represents an income record. Inherits from `RecordBase`.
+#### Methods
+- **`__init__(self, name, amount)`**  
+  Creates a base record and performs validation.
 
-#### **Methods:**
+- **`_validate_name(self, name)`**  
+  Ensures name is a string and does not exceed max length.
 
-* **yearly_income()**
-  Returns 12 times the monthly income amount.
+- **`_validate_amount(self, amount)`**  
+  Ensures amount is numeric, non-negative, and below MAX_AMOUNT.
 
-* **describe()**
-  Returns a formatted string describing the income.
+- **`show(self)`**  
+  Returns formatted string representation of the record.
 
-* **to_dict()**
-  Serializes the income into a dictionary including name, amount, source, and type.
-
----
-
-### **Class: Expense(name, amount, category)**
-
-Represents a spending record. Inherits from `RecordBase`.
-
-#### **Methods:**
-
-* **yearly_cost()**
-  Returns 12 times the expense amount.
-
-* **describe()**
-  Returns a readable summary of the expense.
-
-* **to_dict()**
-  Serializes the expense into a dictionary including name, amount, category, and type.
+- **`to_dict(self)`**  
+  Serializes the object into a dictionary for JSON saving.
 
 ---
 
-# 📊 2. `analysis` Sub-Package
+## ## `constants.py`
+### **Class: Limits**
+Container class storing global constraints shared across entity models.
 
-This sub-package provides summary statistics and financial insights to help users analyze their household budget.
-
----
-
-## ## 2.1 `summary.py`
-
-### **Functions:**
-
-* **total_income(incomes)**
-  Returns the total sum of income amounts.
-
-* **total_expenses(expenses)**
-  Returns the total sum of all expenses.
-
-* **budget_balance(incomes, expenses)**
-  Computes the net budget balance (total income + total expenses).
+#### Attributes
+- `MAX_AMOUNT` – maximum allowable monetary amount  
+- `MAX_NAME_LEN` – maximum length for name strings  
 
 ---
 
-## ## 2.2 `insights.py`
+## ## `transaction.py`
+*(You will rename this file into two modules later)*  
+Contains Income and Expense entity classes that inherit from `RecordBase`.
 
-### **Functions:**
+### **Class: Income**
+Represents money coming in.
 
-* **expense_details(expenses)**
-  Returns a list of formatted descriptions for all recorded expenses.
+#### Methods
+- **`__init__(name, amount, source)`** – stores validated positive amount  
+- **`describe()`** – human-readable summary of the income  
+- **`to_dict()`** – extends serialization with `"source"` and `"type": "Income"`
 
-* **income_details(incomes)**
-  Returns a list of formatted descriptions for all recorded incomes.
+### **Class: Expense**
+Represents money going out.
 
-* **largest_expenses(expenses, n=3)**
-  Returns the top **N** largest expenses sorted by absolute value.
-
-* **largest_incomes(incomes, n=3)**
-  Returns the top **N** largest incomes in descending order.
-
-* **print_records(title, records)**
-  Utility function that prints a block of records in a clean, readable format.
-
----
-
-# 📁 3. `io` Sub-Package
-
-This sub-package is responsible for saving and loading data, as well as file management.
+#### Methods
+- **`__init__(name, amount, category)`** – stores amount as negative  
+- **`describe()`** – readable expense description  
+- **`to_dict()`** – extends serialization with `"category"` and `"type": "Expense"`
 
 ---
 
-## ## 3.1 `json_io.py`
+# 📊 2. ANALYSIS MODULES (`smartbudget/analysis/`)
 
-### **Functions:**
+## ## `summary.py`
 
-* **save_to_json(records, filename)**
-  Saves a list of `Income` and `Expense` objects into a JSON file. Automatically writes into the `files/` directory.
+### Functions
+- **`total_income()`**  
+  Returns the sum of all positive amounts.
 
-* **load_from_json(filename)**
-  Loads a JSON file and reconstructs `Income` and `Expense` objects.
+- **`total_expenses()`**  
+  Returns the sum of all negative amounts.
 
----
-
-## ## 3.2 `file_utils.py`
-
-### **Functions:**
-
-* **file_exists(filename)**
-  Checks whether a file exists inside the `files/` directory.
-
-* **delete_file(filename)**
-  Removes a specified file from the `files/` directory.
-
-* **list_files()**
-  Returns a list of all files stored in the `files/` directory.
+- **`budget_balance()`**  
+  Net balance = total_income - abs(total_expenses).
 
 ---
 
-# 🖥 4. Main Program (`main.py`)
+## ## `insights.py`
 
-The main program serves as the user interface and connects all package functions.
+### Functions
+- **`_load_split()`**  
+  Internal helper to load both income and expense lists.
 
-### **Key Functions:**
+- **`income_details()`**  
+  Returns a list of formatted strings for each income.
 
-* **add_income()** – Adds a new income record.
-* **add_expense()** – Adds a new expense record.
-* **show_summary()** – Displays total income, total expenses, and balance.
-* **show_expense_details()** – Prints all expense records.
-* **show_income_details()** – Prints all income records.
-* **show_top_expenses()** – Displays top 3 expense records.
-* **show_top_incomes()** – Displays top 3 income records.
-* **save_data()** – Saves data into JSON.
-* **load_data()** – Loads data from JSON.
-* **show_files()** – Lists JSON files.
-* **remove_file()** – Deletes a file.
+- **`expense_details()`**  
+  Returns a list of formatted strings for each expense.
 
 ---
 
-# ✔ Summary
+# ⚙️ 3. CONTROLLER MODULES (`smartbudget/core/`)
+
+These modules implement the *logic layer* of the application.
+
+---
+
+## ## `controller_records.py`
+Handles adding and displaying financial records.
+
+### Functions
+- **`add_income()`**  
+  Collects input → creates an Income object → appends to records → saves to JSON.
+
+- **`add_expense()`**  
+  Collects input → creates Expense object → appends → saves to JSON.
+
+- **`show_summary()`**  
+  Prints total income, total expenses, and balance.
+
+- **`show_income_details()`**  
+  Displays detailed descriptions of all income records.
+
+- **`show_expense_details()`**  
+  Displays detailed descriptions of all expense records.
+
+---
+
+## ## `controller_system.py`
+Handles file saving, loading, listing, and deletion.
+
+### Functions
+- **`save_data()`**  
+  Saves the current records.json data to a chosen backup file.
+
+- **`load_data(incomes, expenses)`**  
+  Reads from a JSON file and reconstructs Income/Expense objects.
+
+- **`show_files()`**  
+  Lists all user-created backup JSON files.
+
+- **`delete_backup_file()`**  
+  Deletes a backup file if it exists.
+
+---
+
+## ## `controller_menu.py`
+Implements the command-line user interface.
+
+### Functions
+- **`print_menu()`**  
+  Prints the SmartBudget main menu.
+
+- **`run()`**  
+  Main application loop.  
+  Routes user input to appropriate controller functions.
+
+---
+
+# 💾 4. IO MODULES (`smartbudget/io/`)
+
+## ## `json_io.py`
+Responsible for saving/loading JSON files.
+
+### Functions
+- **`save_to_json(records, filename)`**  
+  Writes a list of record dictionaries to the target file.
+
+- **`append_to_json(records)`**  
+  Appends new records to `records.json`.
+
+- **`load_from_json(filename)`**  
+  Loads JSON data and reconstructs Income/Expense objects.
+
+---
+
+## ## `file_utils.py`
+General filesystem utilities.
+
+### Functions
+- **`file_exists(filename)`**  
+  Checks if a file exists inside `/files`.
+
+- **`list_files()`**  
+  Returns a list of files inside `/files`.
+
+- **`delete_file(filename)`**  
+  Deletes the selected file if present.
+
+---
+
+# 🚀 5. MAIN PROGRAM (`main.py`)
+
+### Function
+- **`main()`**  
+  Entry point. Calls `run()` from `controller_menu.py` to start the interactive program.
+
+---
+
+# 📘 Summary
 
 SmartBudget provides:
 
-* A complete class hierarchy for financial records.
-* Summary and insight analysis functions.
-* JSON-based persistence.
-* File management utilities.
-* A menu-driven main application.
+- Clean and modular folder structure  
+- Object-oriented record modeling  
+- Feature-based controllers  
+- JSON persistence  
+- Command-line interaction  
 
-This fulfills all requirements for the project and demonstrates professional package design.
+This architecture is easy to extend and maintains excellent readability for course grading.
+
+If you need UML diagrams, a setup.py file, or an auto-generated usage example, just ask!

@@ -14,9 +14,6 @@ class Expense(RecordBase):
         super().__init__(name, -abs(amount))
         self.category = category
 
-    def yearly_cost(self) -> float:
-        return self.amount * 12
-
     def describe(self) -> str:
         return f"Expense '{self.name}' in category '{self.category}': {self.amount:.2f}"
 
@@ -38,9 +35,6 @@ class Income(RecordBase):
     def __init__(self, name: str, amount: float, source: str):
         super().__init__(name, abs(amount))
         self.source = source
-
-    def yearly_income(self) -> float:
-        return self.amount * 12
 
     def describe(self) -> str:
         return f"Income '{self.name}' from source '{self.source}': {self.amount:.2f}"
