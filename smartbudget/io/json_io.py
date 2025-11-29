@@ -1,5 +1,9 @@
 """
 JSON input/output helpers for SmartBudget.
+
+This module provides utility functions for saving and loading financial
+records (Income, Expense, or generic RecordBase) into/from JSON files.
+All files are stored inside the SmartBudget 'files/' directory.
 """
 
 import json
