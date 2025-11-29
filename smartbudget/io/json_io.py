@@ -14,7 +14,8 @@ from smartbudget.core.base_record import RecordBase
 
 
 def save_to_json(records, filename):
-    """Save to files/filename."""
+    """Save a list of record objects (Income, Expense, or RecordBase)
+    into a JSON file inside the 'files/' directory."""
     ensure_files_dir()
     path = os.path.join(FILES_DIR, filename)
 
