@@ -1,6 +1,10 @@
 """
 I/O subpackage for SmartBudget.
 
+This module exposes convenient helper functions for:
+- JSON reading/writing operations
+- Basic file-system utilities (checking files, listing files, deleting files)
+
 Provides:
 - JSON input/output utilities
 - File system utilities
