@@ -1,5 +1,8 @@
 """
 Summary functions for incomes and expenses.
+Provides aggregation helpers and defensive handling for numeric amounts.
+
+Additional inline comments clarify key processing steps.
 """
 import logging
 from typing import Iterable, List
@@ -32,7 +35,7 @@ def _validate_amounts(records: Iterable) -> None:
 def _safe_sum(records: List) -> float:
     """
     Safely sum the amounts of Income or Expense objects.
-    Handles invalid entries gracefully.
+    Gracefully handles corrupted or unreadable entries.
     """
     total = 0.0
 
@@ -89,7 +92,7 @@ def total_expenses() -> float:
 def budget_balance() -> float:
     """
     Returns the final balance (income minus expenses).
-    Includes logging and safe fallbacks.
+    Includes error handling to ensure a fallback result is returned when needed.
     """
     try:
         income = total_income()
