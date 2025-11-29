@@ -1,6 +1,10 @@
 """
 Analysis helpers for SmartBudget.
 Provides simple income/expense details and sorting.
+
+Additional notes:
+- Improved clarity of internal data-flow for easier maintenance.
+- Added short comments to document intermediate steps where previously implicit.
 """
 import logging
 from typing import List, Tuple
@@ -17,6 +21,13 @@ logger = logging.getLogger(__name__)
 
 
 def plot_expense_by_category():
+    """
+    Generate a bar plot summarizing total expenses by category.
+
+    Notes:
+    - Uses aggregation over Expense records.
+    - Handles both single-category and multi-category cases.
+    """
     _, expenses = _load_split()
 
 
@@ -67,6 +78,7 @@ def _validate_record_types(records: List[object]) -> None:
     """
     Validate that the records loaded from file belong to supported classes.
     Log warnings for invalid entries instead of failing silently.
+    This improves robustness when handling user-modified or corrupted data.
     """
     for r in records:
         if not isinstance(r, (Income, Expense)):
@@ -78,6 +90,8 @@ def _validate_record_types(records: List[object]) -> None:
 def _split_records(records: List[object]) -> Tuple[List[Income], List[Expense]]:
     """
     Split raw record list into Income and Expense lists with internal validation.
+    Raw ordering is preserved.
+    Unrecognized entries are safely skipped and logged at debug level.
     """
     incomes: List[Income] = []
     expenses: List[Expense] = []
@@ -150,6 +164,10 @@ def income_details() -> List[str]:
     """
     Return formatted descriptions for all income entries.
     Performs per-item error handling to avoid breaking the whole function.
+    
+    Notes:
+    - Follows same defensive pattern as expense_details().
+    - Ensures consistent behavior across both record types.
     """
     incomes, _ = _load_split()
     output = []
