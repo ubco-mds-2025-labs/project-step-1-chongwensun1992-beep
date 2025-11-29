@@ -1,137 +1,162 @@
-# SmartBudget Package Documentation
+# 📦 SmartBudget — Python Household Budgeting Package
 
-SmartBudget is a modular Python package designed to manage household budgets. It provides functionality to record incomes and expenses, analyze financial data, and save/load records using JSON files. The package also includes utility functions for managing saved data files.
+SmartBudget is a modular Python package for recording incomes and expenses, performing financial analysis, generating visual insights, and saving/loading data using JSON.  
+It demonstrates clean software architecture, object-oriented programming, testing with unittest, and collaborative Git workflows.
 
 ---
 
-## 📁 Project Structure
+# 📁 Submission Notes (DATA 533 – Step 1)
+
+All deliverables such as project description, pre-presentation slides, final presentation slides, and demo video are stored in:
 
 ```
-smartbudget_project/
+docs/
+```
+
+---
+
+# 📁 Project Structure
+
+```
+project/
 │
-├── main.py                 # Main program (menu-driven interface)
-├── files/                  # JSON storage directory
+├── files/
+│   └── records.json
 │
 ├── smartbudget/
-│   ├── __init__.py         # Package initializer
+│   ├── __init__.py
 │   │
-│   ├── core/               # Core financial record classes
+│   ├── analysis/
+│   │   ├── __init__.py
+│   │   ├── insights.py
+│   │   └── summary.py
+│   │
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── controller_menu.py
+│   │   ├── controller_records.py
+│   │   └── controller_system.py
+│   │
+├── entity/
 │   │   ├── __init__.py
 │   │   ├── base_record.py
-│   │   └── transaction.py
+│   │   ├── constants.py
+│   │   ├── expense.py
+│   │   └── income.py
 │   │
-│   ├── analysis/           # Summary and insights analysis
+├── io/
 │   │   ├── __init__.py
-│   │   ├── summary.py
-│   │   └── insights.py
-│   │
-│   └── io/                 # Input/Output modules
-│       ├── __init__.py
-│       ├── json_io.py
-│       └── file_utils.py
+│   │   ├── json_io.py
+│   │   └── file_utils.py
 │
-└── tests/                  # (Optional) Test scripts
+├── tests/
+│   ├── test_base_record.py
+│   ├── test_income_expense.py
+│   ├── test_summary.py
+│   ├── test_insights.py
+│   └── test_suite.py
+│
+├── main.py
+├── FUNCTIONS.md
+└── README.md
 ```
 
 ---
 
-## ✨ Features Overview
+# ✨ Features Overview
 
-### **Income & Expense Management**
+## 🧱 1. Entity Models (`entity/`)
 
-* Add income with name, amount, and source
-* Add expenses with name, amount, and category
-* Store these as structured objects using class inheritance
+### `RecordBase`
 
-### **Financial Analysis**
+- validation for name  
+- validation for amount  
+- shared fields & methods  
+- `to_dict()` for JSON  
+- `show()` for UI display  
 
-From `analysis/summary.py`:
+### `Income` / `Expense`
 
-* `total_income(incomes)` – compute total income
-* `total_expenses(expenses)` – compute total expenses
-* `budget_balance(incomes, expenses)` – calculate net balance
+Both inherit from `RecordBase`:
 
-From `analysis/insights.py`:
+- `Income(name, amount, source)`  
+- `Expense(name, amount, category)` (stored as negative)
 
-* `expense_details(expenses)` – list all expense descriptions
-* `income_details(incomes)` – list all income descriptions
-* `largest_expenses(expenses, n)` – return top N spending items
-* `largest_incomes(incomes, n)` – return top N income items
+Override:
 
-### **Data Saving & Loading (JSON)**
-
-`json_io.py` provides:
-
-* `save_to_json(records, filename)`
-* `load_from_json(filename)` – fully restores Income/Expense objects
-
-### **File Utilities**
-
-`file_utils.py` includes:
-
-* `file_exists(filename)`
-* `delete_file(filename)`
-* `list_files()` (only lists files inside `files/` directory)
+- `describe()`  
+- `to_dict()`  
 
 ---
 
-## 🧠 How the Core Classes Work
+# 🎯 2. Controllers (`core/`)
 
-### **RecordBase (abstract parent class)**
+### `controller_records.py`
 
-Defines shared attributes:
+- add income  
+- add expense  
+- show summary  
+- show income/expense details  
 
-```text
-name
-amount
-```
+### `controller_system.py`
 
-And base methods:
+- save JSON backup  
+- load backup  
+- list files  
+- delete file  
+- reset records  
 
-```text
-def show()
-def is_positive()
-def to_dict()
-```
+### `controller_menu.py`
 
-### **Income & Expense Classes**
-
-Both inherit from `RecordBase`.
-
-#### Income:
-
-```text
-Income(name, amount, source)
-```
-
-Stores positive amount.
-
-#### Expense:
-
-```text
-Expense(name, amount, category)
-```
-
-Stores amount as negative internally for easier calculations.
-
-Both provide:
-
-```text
-def describe()
-def to_dict()  # Saves category/source and type
-```
+- menu UI  
+- user routing  
+- main program loop  
 
 ---
 
-## 🖥 Running the Application
+# 📊 3. Analysis Tools (`analysis/`)
 
-Execute:
+### `summary.py`
 
-```bash
+- `total_income()`  
+- `total_expenses()`  
+- `budget_balance()`  
+
+### `insights.py`
+
+- `income_details()`  
+- `expense_details()`  
+- `plot_expense_by_category()`  
+- `_load_split()`  
+
+---
+
+# 💾 4. JSON IO (`io/`)
+
+### `json_io.py`
+
+- `save_to_json()`  
+- `append_to_json()`  
+- `load_from_json()`  
+- `clear_json()`  
+
+### `file_utils.py`
+
+- `file_exists()`  
+- `list_files()`  
+- `delete_file()`  
+
+---
+
+# 🚀 Running SmartBudget
+
+Run:
+
+```
 python main.py
 ```
 
-You will see an interactive menu:
+Menu:
 
 ```
 1. Add Income
@@ -139,29 +164,24 @@ You will see an interactive menu:
 3. Show Summary
 4. Show Expense Details
 5. Show Income Details
-6. Show Top 3 Expenses
-7. Show Top 3 Incomes
-8. Save Records to JSON
-9. Load Records from JSON
-10. List Files
-11. Delete File
+6. Backup Records to JSON
+7. List Backup Files
+8. Delete File
+9. Records Reset
+10. Show Expense Chart
 0. Exit
 ```
 
 ---
 
-## 📦 JSON Storage
-
-All JSON files are automatically stored inside the `files/` directory.
-
-### Example JSON structure:
+# 🗂 Example JSON Output
 
 ```json
 [
     {
         "name": "Salary",
         "amount": 5000,
-        "source": "CompanyA",
+        "source": "Company A",
         "type": "Income"
     },
     {
@@ -175,29 +195,86 @@ All JSON files are automatically stored inside the `files/` directory.
 
 ---
 
-## 🧪 Testing
+# 🧪 Unit Testing (DATA 533 – Step 2)
 
-Recommended tests (not included but suggested):
+All Step 2 requirements satisfied.
 
-* Test adding incomes/expenses
-* Test saving/loading JSON
-* Test file utilities
-* Test analysis functions
+## ✔ Test Coverage
+
+Tests cover:
+
+- entity classes  
+- JSON I/O  
+- summary calculations  
+- insights and plotting logic  
+- controller functions  
+
+Each test class includes:
+
+- ≥ 2 test cases  
+- ≥ 4 assertions per case  
+- lifecycle methods:  
+  - `setUpClass`  
+  - `setUp`  
+  - `tearDown`  
+  - `tearDownClass`  
+
+## ✔ Test Suite
+
+```
+tests/test_suite.py
+```
+
+Runs all tests.
+
+Run all tests:
+
+```
+python -m unittest discover tests
+```
+
+Or:
+
+```
+python tests/test_suite.py
+```
 
 ---
 
-## 📘 Summary
+# 🤝 GitHub Collaboration (Step 2 Requirement)
 
-SmartBudget is a well-structured, multi-module Python package demonstrating:
-
-* OOP with inheritance
-* Package & subpackage organization
-* JSON serialization/deserialization
-* File system utilities
-* Financial data analysis
-* A full interactive console application
-
-Perfect for course projects and real-world budgeting tools.
+- GitHub repo created  
+- collaborator added  
+- both members cloned repo  
+- each used separate branches  
+- test code developed independently  
+- pull requests completed  
+- merged into `main`  
+- Git history shows equal contribution  
 
 ---
 
+# 🌟 Project Highlights
+
+- modular package design  
+- object-oriented entity models  
+- JSON persistence  
+- clean separation of logic layers  
+- analysis chart with matplotlib  
+- full unittest suite  
+- proper collaboration workflow  
+
+
+---
+
+# 📘 Summary
+
+SmartBudget is a complete, well-designed Python budgeting application that fulfills all requirements for DATA 533:
+
+✔ modular architecture  
+✔ OOP with inheritance  
+✔ JSON persistence  
+✔ analysis + plotting  
+✔ unittest suite  
+✔ GitHub workflow  
+✔ documentation + presentation ready  

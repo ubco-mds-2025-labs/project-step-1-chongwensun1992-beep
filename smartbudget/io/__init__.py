@@ -12,6 +12,8 @@ modules so that users can access them directly from smartbudget.io.
 from .json_io import (
     save_to_json,
     load_from_json
+    append_to_json,
+    clear_json
 )
 
 from .file_utils import (
@@ -24,7 +26,8 @@ __all__ = [
     # JSON I/O
     "save_to_json",
     "load_from_json",
-    "json_pretty_print",
+    "append_to_json",
+    "clear_json",
 
     # File utilities
     "file_exists",
