@@ -1,6 +1,14 @@
 """
 General file utilities for SmartBudget.
-All functions operate inside the 'files' directory.
+
+This module provides helper functions for interacting with files inside
+the 'files/' directory. It includes:
+- ensuring the directory exists
+- checking if a file exists
+- deleting files
+- listing all files
+
+All paths are automatically resolved inside the SmartBudget 'files' folder.
 """
 
 import os
