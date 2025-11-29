@@ -5,9 +5,8 @@ This module exposes convenient helper functions for:
 - JSON reading/writing operations
 - Basic file-system utilities (checking files, listing files, deleting files)
 
-Provides:
-- JSON input/output utilities
-- File system utilities
+These functions are imported from the underlying json_io.py and file_utils.py
+modules so that users can access them directly from smartbudget.io.
 """
 
 from .json_io import (
