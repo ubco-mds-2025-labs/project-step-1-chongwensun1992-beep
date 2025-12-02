@@ -1,9 +1,9 @@
 """
 I/O subpackage for SmartBudget.
 
-Provides:
-- JSON input/output utilities
-- File system utilities
+This module exposes the public interface of the I/O layer, grouping together
+JSON serialization utilities and low-level file system operations. It provides
+a clean and centralized access point for higher-level application modules.
 """
 
 from .json_io import (
