@@ -135,17 +135,31 @@ Override:
 # 💾 4. JSON IO (`io/`)
 
 ### `json_io.py`
+Handles all JSON-based data interactions:
 
-- `save_to_json()`  
+- `save_to_json()` 
+   Serializes Income/Expense objects and writes them to a JSON file.
+   
 - `append_to_json()`  
-- `load_from_json()`  
-- `clear_json()`  
+   Appends a single financial record to an existing JSON file.
+   
+- `load_from_json()`
+   Loads data from a JSON file and reconstructs Income/Expense objects.
+   
+- `clear_json()` 
+   Resets a JSON file by deleting all stored records.
 
 ### `file_utils.py`
+Provides foundational file-management utilities:
 
 - `file_exists()`  
-- `list_files()`  
+   Checks whether a file exists.
+   
+- `list_files()`
+   Lists all JSON backup files stored inside the /files/ directory.
+   
 - `delete_file()`  
+   Deletes a specified backup file.
 
 ---
 

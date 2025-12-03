@@ -113,21 +113,35 @@ Functions:
 ------------------------------------------------------------
 4. IO MODULES (smartbudget/io/)
 ------------------------------------------------------------
+The IO layer in SmartBudget manages JSON persistence and general file-handling.
+It is responsible for saving, loading, validating, and maintaining data stored in the /files/ directory.
 
 json_io.py
 -----------
 Functions:
-- save_to_json(records, filename)  
+- save_to_json(records, filename) 
+  Serializes a list of Income/Expense objects and writes the result to a JSON file.
+  
 - append_to_json(records)  
+  Loads the existing JSON file, appends a new record, and saves it back.
+  
 - load_from_json(filename): reconstruct Income or Expense by type  
+  Reads a JSON file and reconstructs the corresponding Income and Expense objects based on the "type" field.
+  
 - clear_json(filename)
-
+  Resets a JSON file by overwriting it with an empty list.
+  
 file_utils.py
 --------------
 Functions:
 - file_exists(filename)  
-- list_files()  
+  Checks whether a specified file exists in the /files/ directory.
+  
+- list_files() 
+  Returns a list of all JSON backup files stored under /files/.
+  
 - delete_file(filename)
+  Removes the selected JSON file from the backup directory.
 
 ------------------------------------------------------------
 5. MAIN PROGRAM (main.py)
