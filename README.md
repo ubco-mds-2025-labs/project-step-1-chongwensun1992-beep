@@ -117,18 +117,20 @@ Override:
 
 # 📊 3. Analysis Tools (`analysis/`)
 
-### `summary.py`
+The analysis module provides lightweight helpers for summarizing and inspecting financial records.
 
-- `total_income()`  
-- `total_expenses()`  
-- `budget_balance()`  
+- **summary.py**
+  - `total_income()`
+  - `total_expenses()`
+  - `budget_balance()`
 
-### `insights.py`
+- **insights.py**
+  - `income_details()`
+  - `expense_details()`
+  - `plot_expense_by_category()`
+  - `_load_split()`
 
-- `income_details()`  
-- `expense_details()`  
-- `plot_expense_by_category()`  
-- `_load_split()`  
+These functions offer the analytical layer of SmartBudget, enabling clear aggregation and visualization without modifying underlying data structures.
 
 ---
 
