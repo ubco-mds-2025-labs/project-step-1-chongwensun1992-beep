@@ -1,7 +1,7 @@
 import unittest
 import logging
 from unittest.mock import patch
-from smartbudget.analysis.insights import income_details, expense_details
+from smartbudget.analysis_module_1.insights import income_details, expense_details
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +15,7 @@ class TestInsights(unittest.TestCase):
     def setUp(self):
         logger.debug("[TestInsights] setUp: resetting temporary state")
 
-    @patch("smartbudget.analysis.insights._load_split")
+    @patch("smartbudget.analysis_module_1.insights._load_split")
     def test_income_details(self, mock_load):
         logger.debug("[TestInsights] Running test_income_details")
         mock_load.return_value = (
@@ -28,7 +28,7 @@ class TestInsights(unittest.TestCase):
         self.assertIsInstance(output, list)
         self.assertTrue(len(output[0]) > 0)
 
-    @patch("smartbudget.analysis.insights._load_split")
+    @patch("smartbudget.analysis_module_1.insights._load_split")
     def test_expense_details(self, mock_load):
         logger.debug("[TestInsights] Running test_expense_details")
         mock_load.return_value = (
