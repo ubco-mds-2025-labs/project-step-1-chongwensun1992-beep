@@ -117,7 +117,7 @@ Override:
 
 # 📊 3. Analysis Tools (`analysis/`)
 
-The analysis module provides lightweight helpers for summarizing and inspecting financial records.
+The analysis module offers a set of lightweight yet expressive helper functions designed to summarize financial activity, highlight key patterns, and support quick diagnostic checks of a user’s records, all without imposing additional structure or altering the underlying data objects.
 
 - **summary.py**
   - `total_income()`
@@ -130,7 +130,7 @@ The analysis module provides lightweight helpers for summarizing and inspecting 
   - `plot_expense_by_category()`
   - `_load_split()`
 
-These functions offer the analytical layer of SmartBudget, enabling clear aggregation and visualization without modifying underlying data structures.
+These functions provide the analytical backbone of SmartBudget, allowing users to perform structured aggregation, generate interpretable summaries, and create visual outputs, all while leaving the core data objects and storage structures untouched.
 
 ---
 

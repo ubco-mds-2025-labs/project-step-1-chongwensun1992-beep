@@ -1,6 +1,6 @@
 # SmartBudget — FUNCTIONS.md (Final Version)
 
-This document describes all modules, classes, and functions inside the SmartBudget package. It ensures clarity, maintainability, and grading readiness.
+This document outlines every module, class, and function within the SmartBudget package, providing a clear reference for structure and behavior. It supports transparency for reviewers, improves long-term maintainability, and ensures the project is fully prepared for evaluation.
 
 ------------------------------------------------------------
 PACKAGE STRUCTURE OVERVIEW
@@ -8,10 +8,12 @@ PACKAGE STRUCTURE OVERVIEW
 
 SmartBudget includes four functional areas:
 
+
 1. entity/ — financial data models  
 2. analysis/ — summaries, insights, charts  
 3. core/ — controllers and CLI interaction  
 4. io/ — JSON persistence and file utilities
+
 
 ------------------------------------------------------------
 1. ENTITY MODULES (smartbudget/entity/)
