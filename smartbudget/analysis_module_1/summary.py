@@ -1,3 +1,4 @@
+# Structural adjustments reapplied by Yifu
 """
 Summary functions for incomes and expenses.
 Provides aggregation helpers and defensive handling for numeric amounts.

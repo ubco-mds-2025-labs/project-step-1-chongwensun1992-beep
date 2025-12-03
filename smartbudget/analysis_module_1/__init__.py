@@ -1,3 +1,4 @@
+# Structural adjustments reapplied by Yifu
 from .summary import (
     total_income,
     total_expenses,

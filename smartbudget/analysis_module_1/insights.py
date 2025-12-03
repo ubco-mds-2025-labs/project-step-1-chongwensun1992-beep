@@ -1,3 +1,4 @@
+# Structural adjustments reapplied by Yifu
 """
 Analysis helpers for SmartBudget.
 Provides simple income/expense details and sorting.
