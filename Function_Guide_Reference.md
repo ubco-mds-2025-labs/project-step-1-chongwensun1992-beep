@@ -87,7 +87,7 @@ Functions:
 3. CONTROLLER MODULES (smartbudget/core/)
 ------------------------------------------------------------
 
-controller_records.py
+budget_record_controller.py
 ----------------------
 Functions:
 - add_income(): input → Income object → save  
@@ -97,7 +97,7 @@ Functions:
 - show_expense_details()  
 - show_expense_chart(): calls plot_expense_categories()
 
-controller_system.py
+file_io_data_controller.py
 ---------------------
 Functions:
 - save_data(): save current records.json as backup  
@@ -106,7 +106,7 @@ Functions:
 - show_files(): list backup files  
 - delete_backup_file(): remove a selected file  
 
-controller_menu.py
+app_menu_controller.py
 -------------------
 Functions:
 - print_menu(): prints menu including chart option  
