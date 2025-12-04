@@ -1,48 +1,23 @@
 """
 SmartBudget CLI Application Interface
 -------------------------------------
-
-This module implements the USER INTERFACE layer of the SmartBudget system.
-
-Responsibilities:
-    • Render the text-based main menu
-    • Provide the main application loop (`run`)
-    • Route user commands to the appropriate controller modules
-
-Architecture Role
------------------
-This module serves as the *application front controller*:
-
-    UI Layer (this module)
-        → delegates to →
-            - BudgetRecordController (record operations: income/expense)
-            - FileIoDataStorageController (backup, load, delete, reset)
-        → which depend on →
-            - entity models (Income, Expense)
-            - analysis modules (summary, insights, charts)
-            - file I/O utilities (JSON persistence)
-
-This module contains:
-    • ZERO business logic
-    • ZERO data storage logic
-    • ONLY menu printing + routing user choices
-
-Functions
----------
-print_menu() : Displays the SmartBudget main menu.
-run()        : Starts the CLI loop and listens for user input.
 """
 
 # ------------------ Imports ------------------ #
 
-from smartbudget.core_module_2 import budget_record_controller as rec
-from smartbudget.core_module_2 import file_io_data_controller as sys
+from smartbudget.core_module_2.budget_record_controller import BudgetRecordController
+from smartbudget.core_module_2.file_io_data_controller import FileIoDataStorageController
+
+
+# ------------------ Create Controller Instances ------------------ #
+
+rec = BudgetRecordController()
+sys = FileIoDataStorageController()
 
 
 # ------------------ UI Menu ------------------ #
 
 def print_menu():
-    """Displays the SmartBudget main menu."""
     print("====================================")
     print("       SmartBudget Main Menu        ")
     print("====================================")
@@ -63,12 +38,6 @@ def print_menu():
 # ------------------ Main Application Loop ------------------ #
 
 def run():
-    """
-    Main loop for the SmartBudget CLI application.
-
-    Continuously prints the menu, reads user input,
-    and delegates actions to the appropriate controller.
-    """
     while True:
         print_menu()
         choice = input("Enter your choice: ").strip()
@@ -98,5 +67,3 @@ def run():
             break
         else:
             print("\n❌ Invalid choice. Try again.\n")
-
-
