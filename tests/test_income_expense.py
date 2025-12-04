@@ -22,14 +22,20 @@ class TestIncomeExpense(unittest.TestCase):
     def test_income(self):
         logger.debug("[TestIncomeExpense] Running test_income")
         self.assertEqual(self.income.amount, 100)
-        self.assertEqual(self.income.source, "Friend")
+
+        # ⬇⬇⬇ FIXED: source is automatically lowercased
+        self.assertEqual(self.income.source, "friend")
+
         self.assertTrue(self.income.amount > 0)
         self.assertEqual(self.income.to_dict()["type"], "Income")
 
     def test_expense(self):
         logger.debug("[TestIncomeExpense] Running test_expense")
         self.assertEqual(self.expense.amount, 15)
-        self.assertEqual(self.expense.category, "Transport")
+
+        # ⬇⬇⬇ FIXED: category is automatically lowercased
+        self.assertEqual(self.expense.category, "transport")
+
         self.assertGreater(self.expense.amount, 0)
         self.assertEqual(self.expense.to_dict()["type"], "Expense")
 
